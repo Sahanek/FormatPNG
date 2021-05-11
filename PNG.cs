@@ -11,41 +11,27 @@ namespace FormatPNG
     //IHDR is first chunk. Contains file information and always has 13 bytes.
     internal class PNG
     {
-        public int Width { get; set; } // 4 bytes
-        public int Height { get; set; } //4 bytes
-        public int BitDepth { get; set; } //1 byte
-        public int ColorType { get; set; } // 1 byte
-        public int CompressionMethod { get; set; } // 1 byte
-        public int FilterMethod { get; set; } // 1 byte
-        public int InterlaceMethod { get; set; } // 1 byte
+
         public int NumberOfChunks { get; set; }
         public List<Chunk> Chunks { get; set; } = new();
 
         internal static PNG ParseToPNG(byte[] bytes)
         {
-            var PNGToReturn = new PNG();
-            var restOfPNG = bytes.Skip(8); //Skips 8 bytes png signature
+            var pngToReturn = new PNG();
+            var restOfPng = bytes.Skip(8); //Skips 8 bytes png signature
                                            //Skips the first 8 bytes of a PNG file (PNG signature)
-            while (restOfPNG.Any())
+            while (restOfPng.Any())
             {
-                (Chunk info, int skippedBytes) = Chunk.ReadChunk(restOfPNG);
-                PNGToReturn.Chunks.Add(info);
-                restOfPNG = restOfPNG.Skip(skippedBytes);
+                (Chunk info, int skippedBytes) = Chunk.ReadChunk(restOfPng);
+                pngToReturn.Chunks.Add(info);
+                restOfPng = restOfPng.Skip(skippedBytes);
             }
 
-            return PNGToReturn.ReadIHDR();
+            return pngToReturn.ReadIhdr();
         }
 
-        public PNG ReadIHDR()
+        public PNG ReadIhdr()
         {
-            Chunk IHDR = this.Chunks.First();
-            Width = Chunk.ConvertLengthToInt(IHDR.Data.Take(4).ToArray());
-            Height = Chunk.ConvertLengthToInt(IHDR.Data.Skip(4).Take(4).ToArray());
-            BitDepth = IHDR.Data.Skip(8).Take(1).Sum(x => (int)x);
-            ColorType = IHDR.Data.Skip(9).Take(1).Sum(x => (int)x);
-            CompressionMethod = IHDR.Data.Skip(10).Take(1).Sum(x => (int)x);
-            FilterMethod = IHDR.Data.Skip(11).Take(1).Sum(x => (int)x);
-            InterlaceMethod = IHDR.Data.Skip(12).Take(1).Sum(x => (int)x);
             NumberOfChunks = this.Chunks.Count;
             return this;
         }
