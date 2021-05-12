@@ -18,7 +18,7 @@ namespace FormatPNG
         {
             Console.WriteLine($"Type   : {System.Text.Encoding.UTF8.GetString(CType)}");
             Console.WriteLine($"Length : {Length}");
-            Console.WriteLine($"CRC32  : {String.Join(' ', Crc32)}");
+            Console.WriteLine($"CRC32  : {String.Join(' ', Crc32)} is {(CorrectCrc32 ? "Correct" : "Incorrect")}");
             Console.WriteLine($"Data   : {DataString}");
         }
     }

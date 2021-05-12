@@ -11,7 +11,7 @@ namespace FormatPNG
     {
         internal static void Read(string fileName)
         {
-            var byteArray = File.ReadAllBytes("test.png");
+            var byteArray = File.ReadAllBytes("images7_ITXt.png");
 
             var PNG = new PNG();
 

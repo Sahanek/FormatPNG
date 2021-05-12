@@ -8,7 +8,7 @@ namespace FormatPNG
     {
         static void Main(string[] args)
         {
-            var byteArray = File.ReadAllBytes("sample.png");
+            var byteArray = File.ReadAllBytes("images3.png");
 
             var Png = PNG.ParseToPNG(byteArray);
             Png.WritePNG();
