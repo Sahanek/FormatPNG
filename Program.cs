@@ -8,7 +8,7 @@ namespace FormatPNG
     {
         static void Main(string[] args)
         {
-            var byteArray = File.ReadAllBytes("images3.png");
+            var byteArray = File.ReadAllBytes("images7_ITXt.png");
 
             var Png = PNG.ParseToPNG(byteArray);
             Png.WritePNG();
@@ -24,6 +24,7 @@ namespace FormatPNG
             //    Console.Write(bytes + " ");
             //}
             //Console.WriteLine($"Hello World! {byteArray.Length}");
+            
         }
     }
 }

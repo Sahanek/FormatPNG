@@ -73,8 +73,9 @@ namespace FormatPNG
                 "Chrm" => (new Chrm(Length, CType, Data, CRC32), 12 + Length),
                 "Time" => (new Time(Length, CType, Data, CRC32), 12 + Length),
                 "Plte" => (new Plte(Length, CType, Data, CRC32), 12 + Length),
-                "Itxt" => (new Text(Length, CType, Data, CRC32), 12 + Length),
+                "Itxt" => (new Itxt(Length, CType, Data, CRC32), 12 + Length),
                 "Idat" => (new Idat(Length, CType, Data, CRC32), 12 + Length),
+                "Ztxt" => (new Ztxt(Length, CType, Data, CRC32), 12 + Length),
                 _ => (new Chunk(Length, CType, Data, CRC32), 12 + Length),
             };
         }
