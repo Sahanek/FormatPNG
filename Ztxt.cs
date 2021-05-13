@@ -12,10 +12,9 @@ namespace FormatPNG
         public string Keyword { get; set; }
         public string Txt { get; set; }
         public byte CompressionMethod { get; set; }
-        public Ztxt(int length, byte[] cType, byte[] data, byte[] crc32) : base(length, cType, data, crc32)
+        public Ztxt(byte[] length, byte[] cType, byte[] data, byte[] crc32) : base(length, cType, data, crc32)
         {
             Decode();
-            //DataString = System.Text.Encoding.UTF8.GetString(data);
         }
 
         public void Decode()
@@ -39,9 +38,7 @@ namespace FormatPNG
 
         public override void WriteChunk()
         {
-            Console.WriteLine($"Type   : {System.Text.Encoding.UTF8.GetString(CType)}");
-            Console.WriteLine($"Length : {Length}");
-            Console.WriteLine($"CRC32  : {String.Join(' ', Crc32)} is {(CorrectCrc32 ? "Correct" : "Incorrect")}");
+            base.WriteChunk();
             Console.WriteLine($"Compression Method {CompressionMethod}");
             Console.WriteLine($"{Keyword}: {Txt}");
 

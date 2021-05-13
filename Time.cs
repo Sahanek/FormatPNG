@@ -11,7 +11,7 @@ namespace FormatPNG
         public DateTime DateTime { get; set; }
 
 
-        public Time(int length, byte[] cType, byte[] data, byte[] crc32) : base(length, cType, data, crc32)
+        public Time(byte[] length, byte[] cType, byte[] data, byte[] crc32) : base(length, cType, data, crc32)
         {
             Decode();
         }
@@ -29,9 +29,7 @@ namespace FormatPNG
 
         public override void WriteChunk()
         {
-            Console.WriteLine($"Type   : {Encoding.UTF8.GetString(CType)}");
-            Console.WriteLine($"Length : {Length}");
-            Console.WriteLine($"CRC32  : {String.Join(' ', Crc32)} is {(CorrectCrc32 ? "Correct" : "Incorrect")}");
+            base.WriteChunk();
             Console.WriteLine($"Time   : {DateTime.ToLongDateString()}, {DateTime.ToLongTimeString()}");
         }
 

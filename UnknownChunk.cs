@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace FormatPNG
 {
-    internal class Idat : Chunk
+    internal class UnknownChunk : Chunk
     {
-        public Idat(byte[] length, byte[] cType, byte[] data, byte[] crc32) : base(length, cType, data, crc32)
+        public UnknownChunk(byte[] length, byte[] cType, byte[] data, byte[] crc32) : base(length, cType, data, crc32)
         {
         }
 
         public override void WriteChunk()
         {
             base.WriteChunk();
+            Console.WriteLine($"Data   : {String.Join(' ', Data)}");
         }
     }
 }

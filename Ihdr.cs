@@ -15,7 +15,7 @@ namespace FormatPNG
         public int CompressionMethod { get; set; } // 1 byte
         public int FilterMethod { get; set; } // 1 byte
         public int InterlaceMethod { get; set; } // 1 byte
-        public Ihdr(int length, byte[] cType, byte[] data, byte[] crc32) : base(length, cType, data, crc32)
+        public Ihdr(byte[] length, byte[] cType, byte[] data, byte[] crc32) : base(length, cType, data, crc32)
         {
             EncodeData();
         }
@@ -44,13 +44,11 @@ namespace FormatPNG
 
         public override void WriteChunk()
         {
-            Console.WriteLine($"Type   : {System.Text.Encoding.UTF8.GetString(CType)}");
-            Console.WriteLine($"Length : {Length}");
-            Console.WriteLine($"CRC32  : {String.Join(' ', Crc32)} is {(CorrectCrc32 ? "Correct" : "Incorrect")}");
+            base.WriteChunk();
             Console.WriteLine($"Width   : {Width}");
             Console.WriteLine($"Height   : {Height}");
             Console.WriteLine($"BitDepth   : {BitDepth}");
-            Console.WriteLine($"ColourType   : {ColourType}");
+            Console.WriteLine($"ColorType   : {ColourType}");
             Console.WriteLine($"CompressionMethod   : {CompressionMethod}");
             Console.WriteLine($"FilterMethod   : {FilterMethod}");
             Console.WriteLine($"InterlaceMethod   : {InterlaceMethod}");

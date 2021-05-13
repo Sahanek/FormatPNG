@@ -12,7 +12,7 @@ namespace FormatPNG
     internal class Plte : Chunk
     {
         public List<RGB> Rgbs { get; set; }
-        public Plte(int length, byte[] cType, byte[] data, byte[] crc32) : base(length, cType, data, crc32)
+        public Plte(byte[] length, byte[] cType, byte[] data, byte[] crc32) : base(length, cType, data, crc32)
         {
             Rgbs = new List<RGB>();
             Decode();
@@ -21,7 +21,7 @@ namespace FormatPNG
 
         private void Decode()
         {
-            for (int i = 0; i < Length; i+=3)
+            for (int i = 0; i < Data.Length; i+=3)
             {
                 Rgbs.Add(new RGB(Data[i], Data[i+1], Data[i+2]));
             }
@@ -49,9 +49,7 @@ namespace FormatPNG
 
         public override void WriteChunk()
         {
-            Console.WriteLine($"Type   : {Encoding.UTF8.GetString(CType)}");
-            Console.WriteLine($"Length : {Length}");
-            Console.WriteLine($"CRC32  : {String.Join(' ', Crc32)} is {(CorrectCrc32 ? "Correct" : "Incorrect")}");
+            base.WriteChunk();
             Console.WriteLine("( R , G , B )");
             Rgbs.ForEach(x => Console.WriteLine($"({x.R}, {x.G}, {x.B})"));
         }

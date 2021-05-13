@@ -15,7 +15,7 @@ namespace FormatPNG
         public string LanguageTag { get; set; } = string.Empty;
         public string TranslatedKeyword { get; set; } = string.Empty;
 
-        public Itxt(int length, byte[] cType, byte[] data, byte[] crc32) : base(length, cType, data, crc32)
+        public Itxt(byte[] length, byte[] cType, byte[] data, byte[] crc32) : base(length, cType, data, crc32)
         {
             Decode();
         }
@@ -62,9 +62,7 @@ namespace FormatPNG
         }
         public override void WriteChunk()
         {
-            Console.WriteLine($"Type   : {System.Text.Encoding.UTF8.GetString(CType)}");
-            Console.WriteLine($"Length : {Length}");
-            Console.WriteLine($"CRC32  : {String.Join(' ', Crc32)} is {(CorrectCrc32 ? "Correct" : "Incorrect")}");
+            base.WriteChunk();
             Console.WriteLine($"Compression Flag : {CompressionFlag}");
             Console.WriteLine($"Compression Method : {CompressionMethod}");
             Console.WriteLine($"Language Tag : {LanguageTag}");
