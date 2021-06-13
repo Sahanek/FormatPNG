@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 
 namespace FormatPNG
 {
@@ -8,16 +9,25 @@ namespace FormatPNG
     {
         static void Main(string[] args)
         {
-            var byteArray = File.ReadAllBytes("images7_ITXt.png");
 
-            var Png = PNG.ParseToPNG(byteArray);
-            Png.WritePNG();
+            //KeyGenerator keys = new KeyGenerator(32);
 
-            Console.WriteLine("\nDelete Non critical Chunks\n");
-            Png.DeleteNonCriticalChunks();
-            Console.WriteLine("\nDeleted non critical Chunks\n");
-            Png.WritePNG();
-            Png.WriteToFile();
+            var Rsa = new RSA(32);
+            //BigInteger big = 2;
+            //double a;
+
+            //big.IsPrime(25, out double a);
+            //Console.WriteLine(big.IsPrime(25, out double a));
+            //var byteArray = File.ReadAllBytes("images7_ITXt.png");
+
+            //var Png = PNG.ParseToPNG(byteArray);
+            //Png.WritePNG();
+
+            //Console.WriteLine("\nDelete Non critical Chunks\n");
+            //Png.DeleteNonCriticalChunks();
+            //Console.WriteLine("\nDeleted non critical Chunks\n");
+            //Png.WritePNG();
+            //Png.WriteToFile();
 
             //Console.WriteLine($"Chunk Length: {info.Length}\n Chunk Type: {info.CType}\n" +
             //$" Chunk Data: {String.Join(' ', info.Data)}\n Chunk CRC32 : {String.Join(' ', info.Crc32)}\n");
@@ -30,7 +40,7 @@ namespace FormatPNG
             //    Console.Write(bytes + " ");
             //}
             //Console.WriteLine($"Hello World! {byteArray.Length}");
-            
+
         }
     }
 }

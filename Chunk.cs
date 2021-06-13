@@ -35,7 +35,7 @@ namespace FormatPNG
             Array.Copy(Data, 0, inputArray, CType.Length, Data.Length);
             var crc32 = Crc32Algorithm.Compute(inputArray);
 
-            return (crc32 == Chunk.Convert4ByteToUInt(Crc32), BitConverter.GetBytes(crc32).Reverse().ToArray()); 
+            return (crc32 == Chunk.Convert4ByteToUInt(Crc32), Crc32); 
         }
         internal static int Convert4ByteToInt(byte[] bytes)
         {

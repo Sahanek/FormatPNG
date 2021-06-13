@@ -17,10 +17,10 @@ namespace FormatPNG
         public int InterlaceMethod { get; set; } // 1 byte
         public Ihdr(byte[] length, byte[] cType, byte[] data, byte[] crc32) : base(length, cType, data, crc32)
         {
-            EncodeData();
+            DecodeData();
         }
 
-        private void EncodeData()
+        private void DecodeData()
         {
 
             Width = Chunk.Convert4ByteToInt(Data.Take(4).ToArray());

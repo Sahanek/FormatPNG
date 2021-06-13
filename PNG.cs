@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -62,15 +63,58 @@ namespace FormatPNG
 
         }
 
+        public void WriteIdat()
+        {
+            foreach (var chunk in Chunks)
+            {
+                if (chunk is Idat)
+                {
+                    chunk.WriteChunk();
+                    foreach (var b in chunk.Data)
+                    {
+                        Console.Write($"{b} ");   
+                    }
+                }
+            }
+        }
+
+        public void Rewrite()
+        {
+            var ihdr = Chunks.Where(c => c is Ihdr).First() as Ihdr;
+            int width = ihdr.Width;
+            Color color = Color.Aqua;
+
+            List<byte> idatData = new();
+            var IdatChunks = Chunks.Where(c => c is Idat).Select(c => c as Idat).ToList();
+
+            foreach (var idatChunk in IdatChunks)
+            {
+                idatData.AddRange(idatChunk.Data);
+            }
+
+            int height = idatData.Count / width;
+            using (Bitmap bitmap = new Bitmap(width, height))
+            {
+                for (int i = 0; i < height; i++)
+                {
+                    for (int j = 0; j < width; j++)
+                    {
+                        int place = (i * height + j) % idatData.Count;
+                        bitmap.SetPixel(j,i, Color.FromArgb(idatData[place],idatData[place],idatData[place]));
+                    }
+                }
+                bitmap.Save("C:\\Users\\Grzesiek\\source\\repos\\FormatPNG\\" + "EncryptedPng.png", ImageFormat.Png);
+            }
+        }
         public void DeleteNonCriticalChunks()
         {
             string[] criticalChunks = new[] { "IDAT", "IHDR", "PLTE", "IEND" };
             Chunks.RemoveAll(x => !criticalChunks.Contains(Encoding.UTF8.GetString(x.CType)));
         }
 
-        public void WriteToFile()
+        public void WriteToFile( string filename = "Png.png")
         {
-            using (var fs = new FileStream("C:\\Users\\Grzesiek\\source\\repos\\FormatPNG\\" + "Png.png", FileMode.Create, FileAccess.Write))
+            using (var fs = new FileStream(@"C:\Users\Grzesiek\source\repos\FormatPNG\bin\Debug\net5.0\" + filename, FileMode.Create, FileAccess.Write))
             {
                 //int length = Header.Length;
                 fs.Write(Header, 0, Header.Length);
