@@ -69,7 +69,7 @@ namespace FormatPNG
                     var e = BigIntegerEx.GenerateRandomBigInteger(BigInteger.Pow(2, KeySize - 1),
                         BigInteger.Pow(2, KeySize));
                     var bitSize = e.GetBitLength();
-                    if (e < N && Nwd(e, phi) == 1 && e.GetBitLength() == KeySize)
+                    if (e < phi && Nwd(e, phi) == 1 && e.GetBitLength() == KeySize)
                     {
                         E = e;
 

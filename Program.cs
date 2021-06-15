@@ -12,7 +12,7 @@ namespace FormatPNG
 
             //KeyGenerator keys = new KeyGenerator(32);
 
-            var Rsa = new RSA(32);
+            var Rsa = new RSA(512);
             //BigInteger big = 2;
             //double a;
 
